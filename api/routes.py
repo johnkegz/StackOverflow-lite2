@@ -1,7 +1,7 @@
 """
    Class for defining url routes
 """
-from controllers.main_views import Account
+from controllers.main_views import Login
 
 
 class GetRoutes():
@@ -14,6 +14,7 @@ class GetRoutes():
         """
            Add url rule defines the routes for http requests
         """
-        url.add_url_rule('/auth/signup', view_func=Account.as_view('signup'), methods=['POST',])
+        
+        url.add_url_rule('/auth/login', view_func=Login.as_view('Login'), methods=['POST'])
 
                                              

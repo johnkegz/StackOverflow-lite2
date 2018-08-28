@@ -6,17 +6,17 @@ from flask.views import MethodView
 from models.view_logic import QuestionAnswer
 
 
-class Account(MethodView):
+class Login(MethodView):
     """
-       Class contains methods for sign up
+       Class for logging in the user
     """
     def post(self):
         """
-           Method for creating new user
+           Method for logging in  user
            params: json requests
            response: json data
         """
-        new_user = QuestionAnswer()
-        user_details = new_user.insert_new_user(request.json['user_name'], request.json['email'], request.json['password'])
-        return jsonify({'Thank You buddy': user_details})
+        login_user = QuestionAnswer()
+        login_data = login_user.fetch_password(request.json['user_name'], request.json['password'])
+        return jsonify({"Welcome": login_data})
 
