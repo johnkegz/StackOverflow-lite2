@@ -34,7 +34,7 @@ class DatabaseConnection:
     def all_questions(self):
         self.cursor.execute("SELECT * FROM users")
         questions = self.cursor.fetchall()
-        question_list = {}
+        question_list = []
         for question in questions:            
             question_list.append(question)
         return question_list
