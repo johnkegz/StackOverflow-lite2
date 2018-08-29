@@ -4,6 +4,7 @@
 from flask import jsonify, request
 from flask.views import MethodView
 from models.database_model import DatabaseTransaction
+import re
 
 class SignUp(MethodView):
     """
@@ -15,6 +16,22 @@ class SignUp(MethodView):
            params: json requests
            response: json data
         """
+        keys = ("user_name", "email", "password")
+        if not set(keys).issubset(set(request.json)):
+            return jsonify({'New answer file': 'Your request has Empty feilds'}), 400
+        if request.json['user_name'] =="":
+            return jsonify({'user name': 'enter user_name'}), 400
+        if request.json['email'] =="":
+            return jsonify({'email': 'enter email'}), 400
+        if request.json['password'] =="":
+            return jsonify({'Password': 'enter password'}), 400
+        if len(request.json['password'])<8:
+            return jsonify({'Password': 'Your password should be more than 8 digits'}), 400
+        # if re.match('[a-z][0-9]|[0-9][a-z]', request.json['password']):
+        #     return jsonify({'Password': 'Your password should be strong'}), 400
+        pattern = r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$"
+        if not re.match(pattern, request.json['email']):
+            return jsonify({'email': 'Enter right format of email thanks'}), 400
         new_user = DatabaseTransaction()
         user_details = new_user.insert_new_user(request.json['user_name'], request.json['email'], request.json['password'])
         return jsonify({'Thank You buddy': user_details})
