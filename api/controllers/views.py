@@ -26,15 +26,13 @@ class SignUp(MethodView):
         if request.json['password'] =="":
             return jsonify({'Password': 'enter password'}), 400
         if len(request.json['password'])<8:
-            return jsonify({'Password': 'Your password should be more than 8 digits'}), 400
-        # if re.match('[a-z][0-9]|[0-9][a-z]', request.json['password']):
-        #     return jsonify({'Password': 'Your password should be strong'}), 400
+            return jsonify({'Password': 'Your password should be more than 8 digits'}), 400        
         pattern = r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$"
         if not re.match(pattern, request.json['email']):
             return jsonify({'email': 'Enter right format of email thanks'}), 400
         new_user = DatabaseTransaction()
         user_details = new_user.insert_new_user(request.json['user_name'], request.json['email'], request.json['password'])
-        return jsonify({'Thank You buddy': user_details})
+        return jsonify({'Sign up message': user_details}), 201
 
 class Login(MethodView):
     """
@@ -46,9 +44,16 @@ class Login(MethodView):
            params: json requests
            response: json data
         """
+        keys = ("email", "password")
+        if not set(keys).issubset(set(request.json)):
+            return jsonify({'login Message': 'Your request has Empty feilds'}), 400
+        if request.json["email"] == "":
+            return jsonify({'Missing email': 'Ennter email'}), 400
+        if request.json["password"] == "":
+            return jsonify({'Missing password': 'Enter password'}), 400
         login_user = DatabaseTransaction()
-        login_data = login_user.fetch_password(request.json['user_name'], request.json['password'])
-        return jsonify({"Welcome": login_data})
+        login_data = login_user.fetch_password(request.json['email'], request.json['password'])
+        return jsonify({"Login Message": login_data}), 200
 
 class GetQuestion(MethodView):
     """
@@ -68,5 +73,30 @@ class GetQuestion(MethodView):
             return jsonify({"Questions": questions_list})
         question_object = DatabaseTransaction()        
         questions_list =  question_object.get_one_question(question_id)
-        return jsonify({"Questions": questions_list})
+        return jsonify({"Question": questions_list})
 
+class NewQuestion(MethodView):
+    """
+       
+    """
+    keys = ("user_id", "question")
+    def post(self):
+        if not set(keys).issubset(set(request.json)):
+            return jsonify({'Add question Message': 'Your request has Empty feilds'}), 400
+        if request.json["user_id"] == "":
+            return jsonify({'Missing user_id': 'Enter user_id'}), 400
+        if request.json["question"] == "":
+            return jsonify({'Missing question': 'Enter question'}), 400
+        new_question = DatabaseTransaction() 
+        new_question_data = new_question.insert_new_question(request.json['user_id'], request.json['questions'])
+        return jsonify({'New question': new_question_data}), 201
+
+class NewAnswer(MethodView):
+    """
+        
+    """
+    keys = ("user_id", "answer")
+    def post(self):
+        new_answer = DatabaseTransaction() 
+        new_answer_data = new_answer.insert_new_answer(request.json['question_id'], request.json['user_id'], request.json['answer'])
+        return jsonify({'New question': new_question_data}), 201

@@ -22,9 +22,9 @@ class TestViews(unittest.TestCase):
         result = self.client().post('/auth/signup',
                                     content_type="application/json",
                                     data=json.dumps(dict(user_name="ben", email="k@gmail.com",
-                                                         password="ben")))
+                                                         password="bpeneeee")))
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('Thank You buddy', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 200)
-self.assertTrue(result.json["Thank You buddy"])
+        self.assertTrue(result.json["Thank You buddy"])
