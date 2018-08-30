@@ -19,4 +19,4 @@ class GetRoutes():
         url.add_url_rule('/questions', view_func=GetQuestion.as_view('questions'), defaults={'question_id': None}, methods=['GET',])
         url.add_url_rule('/questions/<int:question_id>', view_func=GetQuestion.as_view('one_questions'), methods=['Get',])
         url.add_url_rule('/questions', view_func=NewQuestion.as_view('New question'), methods=['POST',])
-        url.add_url_rule('/questions/<int:question_id>/answers', view_func=NewAnswer.as_view('New answer'), methods=['POST',])
+        url.add_url_rule('/questions/<question_id>/answers', view_func=NewAnswer.as_view('New answer'), methods=['POST'])
