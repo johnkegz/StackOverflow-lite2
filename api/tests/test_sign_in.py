@@ -23,8 +23,8 @@ class TestViews(unittest.TestCase):
                                     content_type="application/json",
                                     data=json.dumps(dict(user_name="ben", password="ben")))
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('Welcome', respond)
+        self.assertIn('login Message', respond)
         self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 200)
-        self.assertTrue(result.json["Welcome"])
+        self.assertEqual(result.status_code, 400)
+        self.assertTrue(result.json["login Message"])
     

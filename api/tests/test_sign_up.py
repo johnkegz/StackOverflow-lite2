@@ -24,7 +24,7 @@ class TestViews(unittest.TestCase):
                                     data=json.dumps(dict(user_name="ben", email="k@gmail.com",
                                                          password="bpeneeee")))
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('Thank You buddy', respond)
+        self.assertIn('Sign up message', respond)
         self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 200)
-        self.assertTrue(result.json["Thank You buddy"])
+        self.assertEqual(result.status_code, 201)
+        self.assertTrue(result.json["Sign up message"])

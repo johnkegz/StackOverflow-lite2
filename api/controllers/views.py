@@ -4,8 +4,14 @@
 from flask import jsonify, request
 from flask.views import MethodView
 from models.database_model import DatabaseTransaction
+from models.decorator import token_decorate
 import re
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    get_jwt_identity
+)
 
+decorators = [token_decorate]
 class SignUp(MethodView):
     """
        Class contains method and signupconfiguratons
@@ -23,8 +29,10 @@ class SignUp(MethodView):
             return jsonify({'user name': 'enter user_name'}), 400
         if request.json['email'] =="":
             return jsonify({'email': 'enter email'}), 400
-        if request.json['password'] =="":
-            return jsonify({'Password': 'enter password'}), 400
+        if request.json['password'] == "":
+            return jsonify({'Password': 'Password should not contain any spaces'}), 400
+        if (' ' in request.json['password']) == True:
+            return jsonify({'Password': 'Password should not contain any spaces'}), 400
         if len(request.json['password'])<8:
             return jsonify({'Password': 'Your password should be more than 8 digits'}), 400        
         pattern = r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$"
@@ -79,8 +87,9 @@ class NewQuestion(MethodView):
     """
        
     """
-    keys = ("user_id", "question")
+
     def post(self):
+        keys = ("user_id", "question")
         if not set(keys).issubset(set(request.json)):
             return jsonify({'Add question Message': 'Your request has Empty feilds'}), 400
         if request.json["user_id"] == "":
@@ -88,15 +97,21 @@ class NewQuestion(MethodView):
         if request.json["question"] == "":
             return jsonify({'Missing question': 'Enter question'}), 400
         new_question = DatabaseTransaction() 
-        new_question_data = new_question.insert_new_question(request.json['user_id'], request.json['questions'])
+        new_question_data = new_question.insert_new_question(request.json['user_id'], request.json['question'])
         return jsonify({'New question': new_question_data}), 201
 
 class NewAnswer(MethodView):
     """
-        
-    """
-    keys = ("user_id", "answer")
-    def post(self):
+        Add An answer to a question
+    """    
+    def post(self, question_id):
+        keys = ("user_id", "answer")
+        if not set(keys).issubset(set(request.json)):
+            return jsonify({'Message': 'Your request has Empty feilds'}), 400
+        if request.json["user_id"] == "":
+            return jsonify({'Missing user_id': 'Enter user_id'}), 400
+        if request.json["answer"] == "":
+            return jsonify({'Missing answer': 'Enter answer'}), 400
         new_answer = DatabaseTransaction() 
-        new_answer_data = new_answer.insert_new_answer(request.json['question_id'], request.json['user_id'], request.json['answer'])
-        return jsonify({'New question': new_question_data}), 201
+        new_answer_data = new_answer.insert_new_answer(question_id, request.json['user_id'], request.json['answer'])
+        return jsonify({'Answer': new_answer_data}), 201
