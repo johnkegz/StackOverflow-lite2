@@ -29,8 +29,7 @@ class DatabaseTransaction:
                     question_id SERIAL PRIMARY KEY,
                     user_id INT REFERENCES users(user_id),
                     questions VARCHAR(100) NOT NULL,
-                    question_date date
-                                     
+                    question_date date                                    
                     
                 )
             """,
