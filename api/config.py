@@ -5,8 +5,8 @@ class Config(object):
     """
        Method for defining the default environment
     """  
-    DEBUG = True
-    TESTING = True
+    DEBUG = False
+    TESTING = False
     SECRET_KEY = 'kalyango'
 
 class DevelopmentConfig(Config):
@@ -14,8 +14,7 @@ class DevelopmentConfig(Config):
        Method for defining the development environment
     """   
     DEBUG = True
-    TESTING = True
+    TESTING = False
     ENV = "development"
     SECRET_KEY = 'kalyango'
-    
     
