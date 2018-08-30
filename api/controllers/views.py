@@ -10,7 +10,6 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 
-decorators = [token_decorate]
 class SignUp(MethodView):
     """
        Class contains method and signupconfiguratons
