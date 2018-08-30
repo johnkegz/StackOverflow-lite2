@@ -4,7 +4,6 @@
 from flask import jsonify, request
 from flask.views import MethodView
 from models.database_model import DatabaseTransaction
-from models.decorator import token_decorate
 import re
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
