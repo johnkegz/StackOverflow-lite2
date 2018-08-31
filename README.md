@@ -12,17 +12,17 @@ https://github.com/johnkegz/StackOverflow-lite2
 
 ## Description
 Stackoverflow-lite product enables user to.
-    *  create an account
-    *  singin
-    *  view questions
-    *  post a question
-    *  view number of answers
-    *  view number of questions
-    *  comment on an answer
-    *  up vote or down vote an answer
-    *  delete question posted by user
-    *  fetch all questions ever asked by the user
-    *  accept an answer
+*  create an account
+*  singin
+*  view questions
+*  post a question
+*  view number of answers
+*  view number of questions
+*  comment on an answer
+*  up vote or down vote an answer
+*  delete question posted by user
+*  fetch all questions ever asked by the user
+*  accept an answer
 
 ### Prerequisites
 
@@ -64,12 +64,11 @@ API
 * python
 * Flask framework
 * JWT
-|END POINTS                           | METHOD  | FUNCTION                              |
-|_____________________________________|_________|_______________________________________|
-|/api/v1/questions                    |GET      |Gets all the questions                 |
-|/api/v1/questions/<int:question_id>  |GET      |Gets one question                      |
-|/api/v1/questions                    |POST     |Posts one question                     |
-|/questions/<int:question_id>/answers |POST     |Posts an answer to a specific question |
+### END POINTS                            METHOD   FUNCTION                              
+* /api/v1/questions                     GET       Gets all the questions                 
+* /api/v1/questions/<int:question_id>   GET       Gets one question                      
+* /api/v1/questions                     POST      Posts one question                     
+* /questions/<int:question_id>/answers  POST      Posts an answer to a specific question 
 ## Versioning
 
  * I use git hub for versioning.
