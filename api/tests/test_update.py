@@ -25,3 +25,4 @@ class TestViews(unittest.TestCase):
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 401)
         self.assertTrue(result.json["msg"])
+        

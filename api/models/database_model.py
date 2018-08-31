@@ -160,12 +160,12 @@ class DatabaseTransaction:
             self.cursor.execute(insert_answer,[question_id, user_id, answer, date_time])            
             return "successfully added answer to question"
 
-        except(Exception, psycopg2.ProgrammingError) as e:            
-            raise e
+        except(Exception, psycopg2.ProgrammingError) as error:            
+            raise error
 
     def delete_question(self, question_id, question_ower):
         """
-           Method for
+           Method for deleting a question
         """
         self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [question_id])        
         check_question_id = self.cursor.fetchone()
@@ -186,7 +186,7 @@ class DatabaseTransaction:
            Method for
         """
         self.cursor.execute("SELECT * FROM answers WHERE question_id = %s", [question_id])
-        keys = ["answer_id", "question_id","user_id", "answer", "answer_date"]
+        keys = ["answer_id", "question_id", "user_id", "answer", "answer_date"]
         check_question_id = self.cursor.fetchall()
         all_answer_list = []
         for answer in check_question_id:
@@ -197,7 +197,7 @@ class DatabaseTransaction:
 
     def update_answer(self, question_id, answer_id, new_answer, user_id):
         """
-           Method for
+           Method for updating answer
         """
         print(question_id)
         self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [question_id])      
@@ -210,7 +210,7 @@ class DatabaseTransaction:
         if not check_answer_id:
             return "Question doesnot exist"
         
-        self.cursor.execute("SELECT * FROM answers WHERE user_id = %s", [user_id])      
+        self.cursor.execute("SELECT * FROM answers WHERE user_id = %s", [user_id])
         check_user_id = self.cursor.fetchone()
         if not check_user_id:
             return "you did not post this answer"

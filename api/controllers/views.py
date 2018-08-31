@@ -195,3 +195,4 @@ class AcceptAnswer(MethodView):
         return jsonify({
             'message': accepted_data
             })
+            

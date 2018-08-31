@@ -20,5 +20,5 @@ class GetRoutes():
         url.add_url_rule('/api/v1/questions/<int:question_id>', view_func=GetQuestion.as_view('one_questions'), methods=['Get',])
         url.add_url_rule('/api/v1/questions', view_func=NewQuestion.as_view('New question'), methods=['POST',])
         url.add_url_rule('/api/v1/questions/<question_id>/answers', view_func=NewAnswer.as_view('New answer'), methods=['POST',])
-        url.add_url_rule('/api/v1/Delete /questions/<int:question_id>', view_func=DeleteQuestion.as_view('Delete Question'), methods=['DELETE',])
+        url.add_url_rule('/api/v1/Delete /questions/<question_id>', view_func=DeleteQuestion.as_view('Delete Question'), methods=['DELETE',])
         url.add_url_rule('/api/v1/questions/<question_id>/answers/<answer_id>', view_func=AcceptAnswer.as_view('Accept answer'), methods=['PUT'])
