@@ -2,18 +2,13 @@
 
 Stackoverflow-lite
 ## Travis Badge
-[![Build Status](https://travis-ci.org/johnkegz/StackOverflow-lite.svg?branch=api)](https://travis-ci.org/johnkegz/StackOverflow-lite)
-## Coveralls Badge
-[![Coverage Status](https://coveralls.io/repos/github/johnkegz/StackOverflow-lite/badge.svg?branch=api)](https://coveralls.io/github/johnkegz/StackOverflow-lite?branch=api)
-## Code climate Maintainability Badge
-[![Maintainability](https://api.codeclimate.com/v1/badges/45d40c4afbecf21ca937/maintainability)](https://codeclimate.com/github/johnkegz/StackOverflow-lite/maintainability)
 
-## gh-pages link
-https://johnkegz.github.io/StackOverflow-lite/
-## heroku app link
-https://stackoverflow-lite-johnkegz.herokuapp.com/
+## Coveralls Badge
+
+## Code climate Maintainability Badge
+
 ## github repo link
-https://github.com/johnkegz/StackOverflow-lite
+https://github.com/johnkegz/StackOverflow-lite2
 
 ## Description
 Stackoverflow-lite product enables user to.
@@ -30,8 +25,7 @@ Stackoverflow-lite product enables user to.
     *  accept an answer
 
 ### Prerequisites
- #Users Interface
- *  A browser installed which is uptodate
+
  #API
  * Postman
  * Virtual environment
@@ -44,9 +38,10 @@ Stackoverflow-lite product enables user to.
  * coveralls
  * coverage
  * vscode
+ * postgres
+ * JWT
 ### Installing
-#Users Interface
- * Download and install a browser
+
 #API
 * download and install vscode
 * download and install python(3.6.6)
@@ -58,17 +53,17 @@ Stackoverflow-lite product enables user to.
 * use pip to install coverage in the terminal
 * use pip to install coveralls
 * install vscode
+* Download and install postgres
 ## Deployment
 
 The system is deployed on github which is integrated with TravisCl for continuous integration, then integrated with coverall.io to show the percentage of code that is tested, the integrated with code climate for maintainability and finally hosted on heroku in order for the user(Developer) to use.
 
 ## Built With
-User interface
-* Visual studio code
-* css, html and javascript
+
 API
 * python
 * Flask framework
+* JWT
 |END POINTS                           | METHOD  | FUNCTION                              |
 |_____________________________________|_________|_______________________________________|
 |/api/v1/questions                    |GET      |Gets all the questions                 |
