@@ -17,7 +17,7 @@ class TestViews(unittest.TestCase):
         self.client = app.test_client
     def test_sign(self):
         """
-            Method for tesing the post function which posts a adds a new user
+            Method for tesing the delete function that deletes a question
         """
         result = self.client().delete('/Delete /questions/15')
         respond = json.loads(result.data.decode("utf8"))
