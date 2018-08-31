@@ -3,7 +3,7 @@
 """
 from flask import jsonify, request
 from flask.views import MethodView
-from models.database_model import DatabaseTransaction
+from api.models.database_model import DatabaseTransaction
 import re
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 

@@ -1,7 +1,7 @@
 """
    Class for defining url routes
 """
-from controllers.views import Login, GetQuestion, SignUp, NewQuestion, NewAnswer, DeleteQuestion, AcceptAnswer
+from api.controllers.views import Login, GetQuestion, SignUp, NewQuestion, NewAnswer, DeleteQuestion, AcceptAnswer
 
 
 class GetRoutes():

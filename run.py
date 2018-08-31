@@ -6,7 +6,7 @@ from api.routes.routes import GetRoutes
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-app.config.from_object('config.DevelopmentConfig')
+app.config.from_object('api.config.DevelopmentConfig')
 GetRoutes.fetch_routes(app)
 
 app.config['JWT_SECRET_KEY'] = 'kjdkhfdfi'
