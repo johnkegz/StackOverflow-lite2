@@ -45,7 +45,7 @@ class DatabaseTransaction:
         
         try:
             if(os.getenv("FLASK_ENV")) == "Production":
-                self.connection = psycopg2.connect(os.getenv("DATABASE URI"))
+                self.connection = psycopg2.connect(os.getenv("DATABASE_URL"))
             else:
                 self.connection = psycopg2.connect(dbname='stackoverflow', user='kegz', password='kegz', host='localhost', port='5432')
             self.connection.autocommit = True
@@ -195,7 +195,7 @@ class DatabaseTransaction:
             "answer(s)":all_answer_list
              }
 
-    def update_answer(self, question_id, answer_id, new_answer):
+    def update_answer(self, question_id, answer_id, new_answer, user_id):
         """
            Method for
         """
@@ -209,6 +209,11 @@ class DatabaseTransaction:
         check_answer_id = self.cursor.fetchone()
         if not check_answer_id:
             return "Question doesnot exist"
+        
+        self.cursor.execute("SELECT * FROM answers WHERE user_id = %s", [user_id])      
+        check_user_id = self.cursor.fetchone()
+        if not check_user_id:
+            return "you did not post this answer"
 
         print(new_answer)
         self.cursor.execute("UPDATE answers SET answer = '"+new_answer+"' WHERE  answer_id = '"+answer_id+"' and question_id = %s", [question_id])        

@@ -178,18 +178,20 @@ class AcceptAnswer(MethodView):
     """
        Class for accepting answer
     """
-
+    @jwt_required
     def put(self, question_id, answer_id):
         if request.json["user_action"] == "update":
+            user_id = get_jwt_identity()
             accept = DatabaseTransaction() 
-            updated_data = accept.update_answer(question_id, answer_id, request.json["new_answer"])
+            updated_data = accept.update_answer(question_id, answer_id, request.json["new_answer"], user_id)
             return jsonify({
                 'message': updated_data
                 })
-
+        
+        user_id = get_jwt_identity()
         status = "TRUE"
         accept = DatabaseTransaction() 
-        accepted_data = accept.accept_answer(question_id, answer_id, status)
+        accepted_data = accept.accept_answer(question_id, answer_id, status, user_id)
         return jsonify({
             'message': accepted_data
             })
