@@ -19,9 +19,9 @@ class TestViews(unittest.TestCase):
         """
             Method for tesing the get function which returns one question
         """
-        result = self.client().get('/questions/5')
-        result2 = self.client().get('/questions/a')
+        result = self.client().get('/api/v1/questions/5')
+        result2 = self.client().get('/api/v1/questions/q')
         respond = json.loads(result.data.decode("utf8"))
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result.status_code, 404)
         self.assertEqual(result2.status_code, 404)
         self.assertIsInstance(respond, dict)

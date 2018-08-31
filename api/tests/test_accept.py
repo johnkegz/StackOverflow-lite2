@@ -19,7 +19,7 @@ class TestViews(unittest.TestCase):
         """
             Method for tesing the delete function that deletes a question
         """
-        result = self.client().delete('/api/v1/Delete /questions/6')
+        result = self.client().put('/api/v1/questions/<question_id>/answers/<answer_id>')
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('msg', respond)
         self.assertIsInstance(respond, dict)

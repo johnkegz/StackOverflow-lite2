@@ -19,12 +19,12 @@ class TestViews(unittest.TestCase):
         """
             Method for tesing the post function which logins in a user
         """
-        result = self.client().post('/auth/login',
+        result = self.client().post('/api/v1/auth/login',
                                     content_type="application/json",
                                     data=json.dumps(dict(user_name="ben", password="ben")))
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('login Message', respond)
+        self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
         self.assertEqual(result.status_code, 400)
-        self.assertTrue(result.json["login Message"])
+        self.assertTrue(result.json["message"])
     

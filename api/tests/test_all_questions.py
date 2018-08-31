@@ -20,9 +20,9 @@ class TestViews(unittest.TestCase):
         """
            Method for tesing the get function which returns all questions
         """
-        result = self.client().get('/questions')
+        result = self.client().get('/api/v1/questions')
         respond = json.loads(result.data.decode("utf8"))
         self.assertEqual(result.status_code, 200)
-        self.assertIn('Questions', respond)
+        self.assertIn('Question', respond)
         self.assertIsInstance(respond, dict)
     

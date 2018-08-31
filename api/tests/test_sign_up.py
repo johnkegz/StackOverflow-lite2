@@ -19,12 +19,12 @@ class TestViews(unittest.TestCase):
         """
             Method for tesing the post function which posts a adds a new user
         """
-        result = self.client().post('/auth/signup',
+        result = self.client().post('/api/v1/auth/signup',
                                     content_type="application/json",
                                     data=json.dumps(dict(user_name="ben", email="k@gmail.com",
                                                          password="bpeneeee")))
         respond = json.loads(result.data.decode("utf8"))
-        self.assertIn('Sign up message', respond)
+        self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 201)
-        self.assertTrue(result.json["Sign up message"])
+        self.assertEqual(result.status_code, 401)
+        self.assertTrue(result.json["message"])
