@@ -64,11 +64,15 @@ API
 * python
 * Flask framework
 * JWT
-### END POINTS                            METHOD   FUNCTION                              
+### END POINTS                            METHOD   FUNCTION 
+* /api/v1/auth/signup                   POST      creating user account
+* /api/v1/auth/login                    LOGIN     User login
 * /api/v1/questions                     GET       Gets all the questions                 
 * /api/v1/questions/<int:question_id>   GET       Gets one question                      
 * /api/v1/questions                     POST      Posts one question                     
-* /questions/<int:question_id>/answers  POST      Posts an answer to a specific question 
+* /questions/<int:question_id>/answers  POST      Posts an answer to a specific question
+* /api/v1/Delete /questions/<int:question_id>
+* /api/v1/questions/<question_id>/answers/<answer_id>
 ## Versioning
 
  * I use git hub for versioning.
