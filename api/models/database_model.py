@@ -47,7 +47,7 @@ class DatabaseTransaction:
             if(os.getenv("FLASK_ENV")) == "Production":
                 self.connection = psycopg2.connect(os.getenv("DATABASE_URL"))
             else:
-                self.connection = psycopg2.connect(dbname='stackoverflow', user='kegz', password='kegz', host='localhost', port='5432')
+                self.connection = psycopg2.connect(dbname='stackoverflow', user='postgres', password='', host='localhost', port='5432')
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
             for command in commands:                
