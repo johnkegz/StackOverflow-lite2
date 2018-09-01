@@ -4,7 +4,7 @@ Stackoverflow-lite
 ## Travis Badge
 [![Build Status](https://travis-ci.org/johnkegz/StackOverflow-lite2.svg?branch=develop)](https://travis-ci.org/johnkegz/StackOverflow-lite2)
 ## Coveralls Badge
-[![Coverage Status](https://coveralls.io/repos/github/johnkegz/StackOverflow-lite2/badge.svg?branch=delete-question)](https://coveralls.io/github/johnkegz/StackOverflow-lite2?branch=delete-question)
+[![Coverage Status](https://coveralls.io/repos/github/johnkegz/StackOverflow-lite2/badge.svg?branch=develop)](https://coveralls.io/github/johnkegz/StackOverflow-lite2?branch=develop)
 ## Code climate Maintainability Badge
 [![Maintainability](https://api.codeclimate.com/v1/badges/a4d7efbeef5cdb1147df/maintainability)](https://codeclimate.com/github/johnkegz/StackOverflow-lite2/maintainability)
 ## github repo link
