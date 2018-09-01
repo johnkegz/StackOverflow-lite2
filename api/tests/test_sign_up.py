@@ -37,8 +37,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('/api/v1/auth/signup',
                                     content_type="application/json",
-                                    data=json.dumps(dict(
-                                                         password="bpeneeee")))
+                                    data=json.dumps(dict(password="bpeneeee")))
         
         self.assertEqual(result.status_code, 400)
         respond = json.loads(result.data.decode("utf8"))
