@@ -1,11 +1,11 @@
 """
    Module defines views
 """
+import re
 from flask import jsonify, request
 from flask.views import MethodView
-from api.models.database_model import DatabaseTransaction
-import re
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
+from api.models.database_model import DatabaseTransaction
 
 
 class SignUp(MethodView):
@@ -22,15 +22,15 @@ class SignUp(MethodView):
         if not set(keys).issubset(set(request.json)):
             return jsonify({'New answer file': 'Your request has Empty feilds'}), 400
 
-        if request.json['user_name'] =="":
+        if request.json['user_name'] == "":
             return jsonify({'user name': 'enter user_name'}), 400
-        
+
         if (' ' in request.json['user_name']) == True:
             return jsonify({'message': 'user_name should not contain any spaces'}), 400
 
-        if request.json['email'] =="":
+        if request.json['email'] == "":
             return jsonify({'email': 'enter email'}), 400
-        
+
         if (' ' in request.json['email']) == True:
             return jsonify({'message': 'email should not contain any spaces'}), 400
 
@@ -40,7 +40,7 @@ class SignUp(MethodView):
         if (' ' in request.json['password']) == True:
             return jsonify({'Password': 'Password should not contain any spaces'}), 400
 
-        if len(request.json['password'])<8:
+        if len(request.json['password']) < 8:
             return jsonify({'Password': 'Your password should be more than 8 digits'}), 400
 
         pattern = r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$"
@@ -72,7 +72,7 @@ class Login(MethodView):
 
         if request.json["email"] == "":
             return jsonify({'message': 'Ennter email'}), 400
-        
+
         if (' ' in request.json['email']) == True:
             return jsonify({'message': 'email should not contain any spaces'}), 400
 
@@ -84,7 +84,7 @@ class Login(MethodView):
 
         if user_id:
             return jsonify({
-                "access_token" : create_access_token(identity = user_id),
+                "access_token" : create_access_token(identity=user_id),
                 "message": "Login successful"
             }), 200
 
@@ -103,14 +103,14 @@ class GetQuestion(MethodView):
            response: json data get_all_questions() and self.get_one_question(question_id)
         """
         if question_id is None:
-            question_object = DatabaseTransaction()        
-            questions_list =  question_object.all_questions()
+            question_object = DatabaseTransaction()
+            questions_list = question_object.all_questions()
             if questions_list == "No question available":
                 return jsonify({"Question": questions_list}), 404
             return jsonify({"Question": questions_list})
 
-        question_object = DatabaseTransaction()        
-        questions_list =  question_object.get_one_question(question_id)
+        question_object = DatabaseTransaction()
+        questions_list = question_object.get_one_question(question_id)
         if questions_list == "Not available":
             return jsonify({"Question": questions_list}), 404
         return jsonify({"Question": questions_list})
@@ -129,30 +129,31 @@ class NewQuestion(MethodView):
             return jsonify({'Missing question': 'Enter question'}), 400
 
         user_id = get_jwt_identity()
-        new_question = DatabaseTransaction() 
+        new_question = DatabaseTransaction()
         new_question_data = new_question.insert_new_question(str(user_id), request.json['question'].strip())
 
         if new_question_data == "question exits friend":
             return jsonify({'message': "question was not added"}), 401
         return jsonify({'message': new_question_data}), 201
-            
-        
+
 
 class NewAnswer(MethodView):
     """
-        Add An answer to a question
+        Class for adding an answer to a question
     """
     @jwt_required
     def post(self, question_id):
-        
+        """
+        Add An answer to a question
+        """
         if not request.json["answer"]:
             return jsonify({'message': 'Your request has Empty feilds'}), 400
-        
+
         if request.json["answer"] == "":
             return jsonify({'missing answer': 'Enter answer'}), 400
 
         user_id = get_jwt_identity()
-        new_answer = DatabaseTransaction() 
+        new_answer = DatabaseTransaction()
         new_answer_data = new_answer.insert_new_answer(question_id, user_id, request.json['answer'].strip())
         return jsonify({'answer': new_answer_data}), 201
 
@@ -180,17 +181,20 @@ class AcceptAnswer(MethodView):
     """
     @jwt_required
     def put(self, question_id, answer_id):
+        """
+           Method for upadating an answer and accepting an answer
+        """
         if request.json["user_action"] == "update":
             user_id = get_jwt_identity()
-            accept = DatabaseTransaction() 
+            accept = DatabaseTransaction()
             updated_data = accept.update_answer(question_id, answer_id, request.json["new_answer"], user_id)
             return jsonify({
                 'message': updated_data
                 })
-        
+
         user_id = get_jwt_identity()
         status = "TRUE"
-        accept = DatabaseTransaction() 
+        accept = DatabaseTransaction()
         accepted_data = accept.accept_answer(question_id, answer_id, status, user_id)
         return jsonify({
             'message': accepted_data
