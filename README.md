@@ -9,7 +9,7 @@ Stackoverflow-lite
 [![Maintainability](https://api.codeclimate.com/v1/badges/a4d7efbeef5cdb1147df/maintainability)](https://codeclimate.com/github/johnkegz/StackOverflow-lite2/maintainability)
 ## github repo link
 https://github.com/johnkegz/StackOverflow-lite2
-## heroku link
+## heroku Demo link
 https://stackoverflow-lite2.herokuapp.com/
 
 ## Description
