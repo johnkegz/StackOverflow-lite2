@@ -38,7 +38,7 @@ class TestViews(unittest.TestCase):
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result.status_code, 401)
         self.assertTrue(result.json["message"])
 
     def test_login3(self):

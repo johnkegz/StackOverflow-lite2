@@ -22,7 +22,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().get('/api/v1/questions')
         respond = json.loads(result.data.decode("utf8"))
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result.status_code, 404)
         self.assertIn('Question', respond)
         self.assertIsInstance(respond, dict)
     

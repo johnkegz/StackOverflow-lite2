@@ -28,7 +28,7 @@ class TestViews(unittest.TestCase):
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 401)
+        self.assertEqual(result.status_code, 201)
         self.assertTrue(result.json["message"])
 
     def test_sign2(self):
@@ -69,7 +69,7 @@ class TestViews(unittest.TestCase):
                                     content_type="application/json",
                                     data=json.dumps(dict(user_name  = "john", email = "jgo@gmail.com", password = "18181818")))
         
-        self.assertEqual(result.status_code, 401)
+        self.assertEqual(result.status_code, 201)
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
