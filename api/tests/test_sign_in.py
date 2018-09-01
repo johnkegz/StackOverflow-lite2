@@ -52,7 +52,7 @@ class TestViews(unittest.TestCase):
         self.assertEqual(result.status_code, 400)
         
         
-    def test_login3(self):
+    def test_login4(self):
         """
             Method for tesing the post function which logins in a user
         """
