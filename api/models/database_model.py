@@ -47,7 +47,11 @@ class DatabaseTransaction:
             if(os.getenv("FLASK_ENV")) == "Production":
                 self.connection = psycopg2.connect(os.getenv("DATABASE_URL"))
             else:
-                self.connection = psycopg2.connect(dbname='stackoverflow', user='postgres', password='', host='localhost', port='5432')
+                self.connection = psycopg2.connect(dbname='stackoverflow',
+                                                   user='postgres',
+                                                   password='',
+                                                   host='localhost',
+                                                   port='5432')
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
             for command in commands:
@@ -89,7 +93,7 @@ class DatabaseTransaction:
         keys = ["question_id", "user_id", "questions", "question_date"]
         questions = self.cursor.fetchall()
         question_list = []
-        for question in questions:            
+        for question in questions:
             question_list.append(dict(zip(keys, question)))
         if not question_list:
             return "No question available"
@@ -101,7 +105,7 @@ class DatabaseTransaction:
            Method for
         """
         self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [entered_question_id])
-        keys = ["question_id", "user_id","questions","question_date"]
+        keys = ["question_id", "user_id", "questions", "question_date"]
         question = self.cursor.fetchone()
         if not question:
             return "Not available"
@@ -138,7 +142,7 @@ class DatabaseTransaction:
                 return "question doesnot exits friend"
 
             insert_answer = "INSERT INTO answers(question_id, user_id, answer, answer_date) VALUES(%s, %s, %s, %s)"
-            self.cursor.execute(insert_answer,[question_id, user_id, answer, date_time])
+            self.cursor.execute(insert_answer, [question_id, user_id, answer, date_time])
             return "successfully added answer to question"
 
         except(Exception, psycopg2.ProgrammingError) as error:
@@ -153,8 +157,8 @@ class DatabaseTransaction:
         if not check_question_id:
             return "Question doesnot exist"
 
-        self.cursor.execute("DELETE FROM questions WHERE user_id = '"+question_ower+"' and question_id = %s",
-        [question_id])
+        self.cursor.execute(
+            "DELETE FROM questions WHERE user_id = '"+question_ower+"' and question_id = %s", [question_id])
 
         self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [question_id])
         check_question_id = self.cursor.fetchone()
@@ -175,14 +179,14 @@ class DatabaseTransaction:
             all_answer_list.append(dict(zip(keys, answer)))
         return {
             "answer(s)":all_answer_list
-             }
+            }
 
     def update_answer(self, question_id, answer_id, new_answer, user_id):
         """
            Method for updating answer
         """
         print(question_id)
-        self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [question_id])      
+        self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [question_id])
         check_question_id = self.cursor.fetchone()
         if not check_question_id:
             return "Question doesnot exist"
