@@ -2,8 +2,8 @@
    Module for starting/ running the app
 """
 from flask import Flask
-from api.routes.routes import GetRoutes
 from flask_jwt_extended import JWTManager
+from api.routes.routes import GetRoutes
 
 app = Flask(__name__)
 app.config.from_object('api.config.DevelopmentConfig')

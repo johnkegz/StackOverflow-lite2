@@ -34,7 +34,7 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('/api/v1/auth/login',
                                     content_type="application/json",
-                                    data=json.dumps(dict(email="jgo@gmail.com", password = "18181818")))
+                                    data=json.dumps(dict(email="jgo@gmail.com", password="18181818")))
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('message', respond)
         self.assertIsInstance(respond, dict)
@@ -47,17 +47,14 @@ class TestViews(unittest.TestCase):
         """
         result = self.client().post('/api/v1/auth/login',
                                     content_type="application/json",
-                                    data=json.dumps(dict(email="", password = "18181818")))
-        
+                                    data=json.dumps(dict(email="", password="18181818")))
         self.assertEqual(result.status_code, 400)
-        
-        
+
     def test_login4(self):
         """
             Method for tesing the post function which logins in a user
         """
         result = self.client().post('/api/v1/auth/login',
                                     content_type="application/json",
-                                    data=json.dumps(dict(email="", password = "18181818")))
-        
+                                    data=json.dumps(dict(email="", password="18181818")))
         self.assertEqual(result.status_code, 400)
