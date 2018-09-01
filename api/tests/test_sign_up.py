@@ -72,8 +72,7 @@ class TestViews(unittest.TestCase):
         self.assertEqual(result.status_code, 201)
         respond = json.loads(result.data.decode("utf8"))
         self.assertIn('message', respond)
-        self.assertIsInstance(respond, dict)
-        self.assertEqual(result.status_code, 401)
+        self.assertIsInstance(respond, dict)        
         self.assertTrue(result.json['message'])
 
     def test_sign5(self):
