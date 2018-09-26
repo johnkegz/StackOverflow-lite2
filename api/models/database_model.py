@@ -24,12 +24,13 @@ class DatabaseTransaction:
                 )
             """,
             """
-            CREATE TABLE IF NOT EXISTS "questions" (
+            CREATE TABLE IF NOT EXISTS "questions" (                    
                     question_id SERIAL PRIMARY KEY,
                     user_id INT REFERENCES users(user_id),
+                    user_name VARCHAR(20) NOT NULL,
                     questions VARCHAR(100) NOT NULL,
-                    question_date date
-
+                    question_date date                                    
+                    
                 )
             """,
             """
@@ -88,16 +89,15 @@ class DatabaseTransaction:
         """
            Method for
         """
-        quesrtion_stmt = "SELECT * FROM questions"
+        quesrtion_stmt = "SELECT * FROM questions"           
         self.cursor.execute(quesrtion_stmt)
-        keys = ["question_id", "user_id", "questions", "question_date"]
+        keys = ["question_id", "user_id", "user_name", "questions","question_date"]            
         questions = self.cursor.fetchall()
         question_list = []
-        for question in questions:
+        for question in questions:            
             question_list.append(dict(zip(keys, question)))
-        if not question_list:
+        if not question_list: 
             return "No question available"
-
         return question_list
 
     def get_one_question(self, entered_question_id):
@@ -105,9 +105,9 @@ class DatabaseTransaction:
            Method for
         """
         self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [entered_question_id])
-        keys = ["question_id", "user_id", "questions", "question_date"]
+        keys = ["question_id", "user_id", "user_name", "questions","question_date"]
         question = self.cursor.fetchone()
-        if not question:
+        if not question: 
             return "Not available"
         final_amswer_list = []
         final_amswer_list.append(dict(zip(keys, question)))
@@ -118,14 +118,17 @@ class DatabaseTransaction:
         """
            Method for
         """
+        self.cursor.execute("SELECT user_name FROM users WHERE user_id= %s", [user_id])
+        name = self.cursor.fetchone()
+        print(name[0])
         time_value = time.time()
         date_time = datetime.datetime.fromtimestamp(time_value).strftime('%Y-%m-%d %H:%M:%S')
         self.cursor.execute("SELECT * FROM questions WHERE questions = %s", [new_added_questions])
         check_question = self.cursor.fetchone()
         if check_question:
             return "question exits friend"
-
-        insert_question = "INSERT INTO questions(user_id, questions, question_date) VALUES('"+user_id+"', '"+new_added_questions+"', '"+date_time+"')"
+        
+        insert_question = "INSERT INTO questions(user_id, user_name, questions, question_date) VALUES('"+user_id+"', '"+name[0]+"', '"+new_added_questions+"', '"+date_time+"')"
         self.cursor.execute(insert_question)
         return "question succcssfully created"
 
@@ -222,7 +225,21 @@ class DatabaseTransaction:
         self.cursor.execute("SELECT * FROM answers WHERE answer_id = '"+answer_id+"' and question_id = %s", [question_id])
         check_answer_id = self.cursor.fetchone()
         if not check_answer_id:
-            return "Question doesnot exist"
+            return "Answer doesnot exist"
 
         self.cursor.execute("UPDATE answers SET accepted = '"+accepted+"' WHERE answer_id = '"+answer_id+"' and question_id = %s", [question_id])
         return "answer accepted"
+
+    def own_questions(self, user_id):
+        """
+           method for getting own questions
+        """         
+        self.cursor.execute("SELECT * FROM questions WHERE user_id = %s", [user_id])
+        keys = ["question_id", "user_id", "user_name", "questions","question_date"]            
+        questions = self.cursor.fetchall()
+        question_list = []
+        for question in questions:            
+            question_list.append(dict(zip(keys, question)))
+        if not question_list: 
+            return "No question available"
+        return question_list

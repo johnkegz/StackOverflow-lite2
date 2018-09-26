@@ -2,7 +2,7 @@
    Class for defining url routes
 """
 from api.controllers.views import Login, GetQuestion, SignUp
-from api.controllers.views import NewQuestion, NewAnswer, DeleteQuestion, AcceptAnswer
+from api.controllers.views import NewQuestion, NewAnswer, DeleteQuestion, AcceptAnswer, OwnQuestions
 
 class GetRoutes():
     """
@@ -31,4 +31,4 @@ class GetRoutes():
                          view_func=DeleteQuestion.as_view('Delete Question'), methods=['DELETE',])
         url.add_url_rule('/api/v1/questions/<question_id>/answers/<answer_id>',
                          view_func=AcceptAnswer.as_view('Accept answer'), methods=['PUT'])
-                         
+        url.add_url_rule('/api/v1/ownquestions', view_func=OwnQuestions.as_view('own questions'), methods=['GET'])              

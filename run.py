@@ -2,10 +2,12 @@
    Module for starting/ running the app
 """
 from flask import Flask
-from flask_jwt_extended import JWTManager
 from api.routes.routes import GetRoutes
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object('api.config.DevelopmentConfig')
 GetRoutes.fetch_routes(app)
 
