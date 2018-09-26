@@ -24,7 +24,14 @@ class DatabaseTransaction:
                 )
             """,
             """
-            DELETE TABLE "questions"
+            DELETE TABLE "questions" (                    
+                    question_id SERIAL PRIMARY KEY,
+                    user_id INT REFERENCES users(user_id),
+                    user_name VARCHAR(20) NOT NULL,
+                    questions VARCHAR(100) NOT NULL,
+                    question_date date                                    
+                    
+                )
             """,
             """
             CREATE TABLE IF NOT EXISTS "answers" (
