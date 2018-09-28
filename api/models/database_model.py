@@ -24,7 +24,14 @@ class DatabaseTransaction:
                 )
             """,
             """
-            DELETE TABLE "questions"
+            CREATE TABLE IF NOT EXISTS "questions" (                    
+                    question_id SERIAL PRIMARY KEY,
+                    user_id INT REFERENCES users(user_id),
+                    user_name VARCHAR(20) NOT NULL,
+                    questions VARCHAR(100) NOT NULL,
+                    question_date date                                    
+                    
+                )
             """,
             """
             CREATE TABLE IF NOT EXISTS "answers" (
@@ -98,13 +105,14 @@ class DatabaseTransaction:
            Method for
         """
         self.cursor.execute("SELECT * FROM questions WHERE question_id = %s", [entered_question_id])
-        keys = ["question_id", "user_id", "user_name", "questions","question_date"]
+        keys = ["question_id", "user_id", "user_name", "questions", "question_date"]
         question = self.cursor.fetchone()
         if not question: 
             return "Not available"
         final_amswer_list = []
-        final_amswer_list.append(dict(zip(keys, question)))
-        final_amswer_list.append(self.all_answers(entered_question_id))
+        h = dict(zip(keys, question))
+        h["answers to question"] = self.all_answers(entered_question_id)
+        final_amswer_list.append(h)            
         return final_amswer_list
 
     def insert_new_question(self, user_id, new_added_questions):
