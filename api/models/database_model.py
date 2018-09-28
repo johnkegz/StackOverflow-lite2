@@ -181,9 +181,7 @@ class DatabaseTransaction:
         all_answer_list = []
         for answer in check_question_id:
             all_answer_list.append(dict(zip(keys, answer)))
-        return {
-            "answer(s)":all_answer_list
-            }
+        return all_answer_list
 
     def update_answer(self, question_id, answer_id, new_answer, user_id):
         """
