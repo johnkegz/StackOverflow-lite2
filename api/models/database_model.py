@@ -111,7 +111,7 @@ class DatabaseTransaction:
             return "Not available"
         final_amswer_list = []
         h = dict(zip(keys, question))
-        h["answers to question"] = self.all_answers(entered_question_id)
+        h["answers"] = self.all_answers(entered_question_id)
         final_amswer_list.append(h)            
         return final_amswer_list
 
